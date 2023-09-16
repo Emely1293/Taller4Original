@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularios</title>
+    <style>
+        /* Estilo para el borde alrededor de los formularios */
+        .form-container {
+            border: 2px solid #000;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        /* Estilo para el aviso de código de seguridad */
+        .popup {
+            position: absolute;
+            background: #fff;
+            border: 2px solid #000;
+            padding: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Tus detalles</h1>
+        <form id="formDetalles" action="procesar_formulario.php" method="post">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" class="form-input" pattern="[A-Za-z ]+" required>
+            <br><br>
+            
+            <label for="correo" class="form-label">Correo:</label>
+            <input type="email" id="correo" name="correo" class="form-input" maxlength="30" required>
+            <br><br>
+
+            <label for="telefono" class="form-label">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" class="form-input" pattern="[0-9]+" required>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h1>Dirección de Residencia</h1>
+        <form id="formDireccion" action="procesar_direccion.php" method="post">
+            <label for="direccion" class="form-label">Dirección:</label>
+            <input type="text" id="direccion" name="direccion" class="form-input" required>
+            <br><br>
+
+            <label for="codigo_postal" class="form-label">Código Postal:</label>
+            <input type="text" id="codigo_postal" name="codigo_postal" class="form-input" required>
+            <div class="popup" id="codigo_postal_popup">El código postal debe tener entre 6 y 8 dígitos.</div>
+            <br><br>
+
+            <label for="estado" class="form-label">Estado:</label>
+            <input type="text" id="estado" name="estado" class="form-input" required>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h1>Detalles de Tarjeta</h1>
+        <form id="formTarjeta" action="procesar_tarjeta.php" method="post">
+            <label for="tipo_tarjeta" class="form-label">Tipo de Tarjeta:</label>
+            <select id="tipo_tarjeta" name="tipo_tarjeta" class="form-input" required>
+                <option value="Seleccionar una opcion..."></option>
+                <option value="Visa">Visa</option>
+                <option value="Mastercard">Mastercard</option>
+                <option value="American Express">American Express</option>
+            </select>
+            <br><br>
+
+            <label for="numero_tarjeta" class="form-label">Número de Tarjeta:</label>
+            <input type="text" id="numero_tarjeta" name="numero_tarjeta" class="form-input" pattern="[0-9]{1,3}" required>
+            <br><br>
+
+            <label for="codigo_seguridad" class="form-label">Código de Seguridad:</label>
+            <input type="text" id="codigo_seguridad" name="codigo_seguridad" class="form-input" required>
+            <div class="popup" id="codigo_seguridad_popup">El código de seguridad debe comenzar con 'R' seguido de al menos un dígito.</div>
+            <br><br>
+
+            <label for="nombre_tarjeta" class="form-label">Nombre Exacto de la Tarjeta:</label>
+            <input type="text" id="nombre_tarjeta" name="nombre_tarjeta" class="form-input" required>
+        </form>
+    </div>
+
+    <!-- Botón para comprar/confirmar -->
+    <button id="confirmarButton" class="form-submit">Comprar</button>
+
+    <!-- Mensaje de éxito (inicialmente oculto) -->
+    <div id="successMessage" style="display: none;">Datos almacenados de forma exitosa.</div>
+
+    <script>
+        // Función para mostrar el mensaje de éxito
+        document.getElementById('confirmarButton').addEventListener('click', function () {
+            // Validar si todos los campos están llenos
+            const detallesForm = document.getElementById('formDetalles');
+            const direccionForm = document.getElementById('formDireccion');
+            const tarjetaForm = document.getElementById('formTarjeta');
+
+            if (detallesForm.checkValidity() && direccionForm.checkValidity() && tarjetaForm.checkValidity()) {
+                // Aquí podrías realizar el envío de datos si lo necesitas
+
+                // Mostrar el mensaje de éxito
+                document.getElementById('successMessage').style.display = 'block';
+            } else {
+                alert('Debes llenar todos los campos primero.');
+            }
+        });
+    </script>
+</body>
+</html>
